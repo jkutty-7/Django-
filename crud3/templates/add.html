@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4">
+        <h4 class="text-center alert alert-info">ADD STUDENT</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {{fm.as_p}}
+            <input type="submit" class="btn btn-success" value="ADD">
+        </form>
+    </div>
+    <div class="col-sm-8">
+      <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+         <h4 class="text-center alert alert-info">STUDENT DETAILS</h4>
+         <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">PASSWORD</th>
+                <th scope="col">ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+{% for stu in stu %}
+              <tr>
+                <th scope="row">{{stu.id}}</th>
+                <td>{{stu.username}}</td>
+                <td>{{stu.email}}</td>
+                <td>{{stu.password|slice:"10"}}</td>
+                <td>
+                    <a href="update/{{stu.id}}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="delete/{{stu.id}}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+              </tr>
+{% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% endblock content %}
